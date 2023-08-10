@@ -1,20 +1,26 @@
 from app import bcrypt
+import jwt
+import os
+from models.user_models import User
 
 class UserUtils:
-    # def __init__(self):
-    # @staticmethod
-    # def isUserExist(email: str) -> bool:
-    #     users = Users
-    #     filter = {"email": email}
-    #     if users.find_one(filter) is not None:
-    #         return True
-    #     return False
-    # def isUserNameExists(userName:str)->bool:
-    #     users = Users.g
-    #     filter = {"username": userName}
-    #     if users.find_one(filter) is not None:
-    #         return True
-    #     return False
+    @staticmethod
+    def _is_user_email_exists(email):
+        filter = {"email": email}
+        user = User._get_collection().find_one(filter)
+        if user:
+            return True
+        else:
+            return False
+    
+    @staticmethod
+    def _is_user_username_exists(username):
+        filter = {'username': username }
+        user = User._get_collection().find_one(filter)
+        if user:
+            return True
+        else :
+            return  False
 
     @staticmethod
     def hashPassword(password):
@@ -23,3 +29,7 @@ class UserUtils:
     @staticmethod
     def verifyPassword(password, hashed_password):
         return bcrypt.check_password_hash(hashed_password, password)
+
+    @staticmethod
+    def generateToken(user) -> str:
+        return jwt.encode(user, os.getenv("SECRET_KEY"), algorithm="hs256")
