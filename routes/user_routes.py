@@ -14,7 +14,7 @@ def test():
         return "method_not_allowed"
     
 
-@userBluePrint.route("/create",methods=["POST", "PUT"])
+@userBluePrint.route("/signup",methods=["POST"])
 def create():
     if request.method=="POST":
         return userController.Create()

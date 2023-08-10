@@ -8,7 +8,7 @@ class User(Document):
     createdAt = DateTimeField(default = datetime.now())
     
     # meta = {'allow_inheritance': True,"abstract":True}
-    
+
 # class Todos(Users):
 #     uid = ReferenceField(Users)
 #     title = StringField(required=True,unique=True,max_length=150)
