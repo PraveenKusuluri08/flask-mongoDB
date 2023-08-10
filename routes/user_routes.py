@@ -20,3 +20,10 @@ def create():
         return userController.Create()
     else:
         return "method_not_allowed"
+    
+@userBluePrint.route("/signin",methods=["POST"])
+def signIn():
+    if request.method=="POST":
+        return userController.SignIn()
+    else:
+        return "method_not_allowed"
