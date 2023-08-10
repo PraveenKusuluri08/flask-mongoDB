@@ -10,8 +10,7 @@ load_dotenv(find_dotenv(".env"))
 
 connection_uri = os.getenv("MONGO_URI")
 
-bcrypt = Bcrypt(app)
-
+bcrypt = Bcrypt(app) 
 try:
     connect(host=connection_uri)
     print("Conneted to mongodb")

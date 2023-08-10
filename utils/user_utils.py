@@ -24,12 +24,13 @@ class UserUtils:
 
     @staticmethod
     def hashPassword(password):
-        return bcrypt.generate_password_hash(password).decode("utf-8")
-
+        
+        return bcrypt.generate_password_hash(password).decode('utf-8')
+    
     @staticmethod
     def verifyPassword(password, hashed_password):
-        return bcrypt.check_password_hash(hashed_password, password)
+        return bcrypt.check_password_hash(hashed_password,password)
 
     @staticmethod
     def generateToken(user) -> str:
-        return jwt.encode(user, os.getenv("SECRET_KEY"), algorithm="hs256")
+        return jwt.encode(user, os.getenv("SECRET_KEY"), algorithm="HS256")
