@@ -1,7 +1,11 @@
 from app import *
-from routes import userBluePrint 
+from routes import userBluePrint,chatBlueprint
 from flask import jsonify
+from endpoint import middleware
+
 app.register_blueprint(userBluePrint)
+
+app.register_blueprint(chatBlueprint)
 
 @app.route("/t")
 def t():
@@ -10,4 +14,6 @@ def t():
 print(app.url_map)
 
 if __name__=="__main__":
-    app.run(host="0.0.0.0",port=5000,debug=True)
+    print(f"socket connection established")
+    socketIO.run(app,port=5000,debug=True)
+    # app.run(host="0.0.0.0",port=5000,debug=True)

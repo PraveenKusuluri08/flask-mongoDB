@@ -2,7 +2,7 @@ from app import bcrypt
 import jwt
 import os
 from models.user_models import User
-
+import re
 class UserUtils:
     @staticmethod
     def _is_user_email_exists(email):
@@ -24,7 +24,6 @@ class UserUtils:
 
     @staticmethod
     def hashPassword(password):
-        
         return bcrypt.generate_password_hash(password).decode('utf-8')
     
     @staticmethod
@@ -34,3 +33,11 @@ class UserUtils:
     @staticmethod
     def generateToken(user) -> str:
         return jwt.encode(user, os.getenv("SECRET_KEY"), algorithm="HS256")
+    
+    @staticmethod
+    def _is_email_valid(email) -> bool:
+        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')  
+        if re.fullmatch(regex,email):
+            return True
+        else:
+            return False
