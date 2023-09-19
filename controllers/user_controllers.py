@@ -22,7 +22,7 @@ class UserControllers:
         password = data["password"]
         firstName = data["firstName"]
         lastName = data["lastName"]
-
+        
         # checking if user exists or not if user exists then return already exists message if not continue with the next process
         if (UserUtils._is_user_email_exists(email)):
             return jsonify({"message": "User already exists", "status": 400})
@@ -33,7 +33,7 @@ class UserControllers:
         hashedPassword = UserUtils.hashPassword(password)
 
         user = User(username=username.lower(), email=email,
-                    password=hashedPassword, firstname=firstName, lastname=lastName)
+                    password=hashedPassword, firstname=firstName, lastname=lastName,isVerified=False)
 
         user.save()
 
@@ -43,7 +43,6 @@ class UserControllers:
         # form data is in the json string so parsing it
 
         data = request.get_json()
-        print(data["password"])
         if len(data["email"]):
             if data["email"] and not UserUtils._is_user_email_exists(data["email"]):
                 return jsonify({"message": "User with email address is not exists", "status": 404})
@@ -63,7 +62,6 @@ class UserControllers:
             password = u["password"]
             username = u["username"]
             _id = u["_id"]
-        print("Email", _id)
         if not UserUtils.verifyPassword(data["password"], password):
             return jsonify({"message": "Password is incorrect", "status": 404})
 

@@ -8,6 +8,7 @@ class User(Document):
     createdAt = DateTimeField(default = datetime.now())
     firstname=StringField(required=True)
     lastname=StringField(required=True)
+    isVerified=BooleanField(required=True)
     
     # meta = {'allow_inheritance': True,"abstract":True}
     

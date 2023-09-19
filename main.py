@@ -1,12 +1,13 @@
 from app import *
 from routes import userBluePrint,chatBlueprint
 from flask import jsonify
-from endpoint import middleware
 
 app.register_blueprint(userBluePrint)
 
 app.register_blueprint(chatBlueprint)
 
+
+    
 @app.route("/t")
 def t():
     return jsonify(message="Test endpoint")
