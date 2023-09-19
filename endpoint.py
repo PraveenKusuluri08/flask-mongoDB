@@ -17,7 +17,6 @@ def middleware(func):
                 "SECRET_KEY"), algorithms=["HS256"])
             
             print("decoded ", decoded)
-            
 
             if not decoded:
                 raise Exception("token_corrupted")
@@ -25,7 +24,6 @@ def middleware(func):
             id = ObjectId(decoded["_id"])
 
             user = User._get_collection().find_one({"_id": id})
-            print("🥰",user)
             if not user:
                 return jsonify({"error": "User not found"})
 
@@ -35,12 +33,10 @@ def middleware(func):
                 "email": user["email"],
             }
             return func()
-
         except jwt.ExpiredSignatureError:
-            return jsonify({"error": "Sign error please login", "status": 401})
-
-        except Exception as e:
-            print("😅", e)
-            return jsonify({"error": "Please check with the token. Token currupted"})
+            return jsonify({"error":"Token expired"})
+        # except Exception as e:
+        #     print("😅", e)
+        #     return jsonify({"error": "Please check with the token. Token currupted"})
 
     return check_token

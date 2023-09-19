@@ -10,7 +10,7 @@ chatController = ChatController()
 @chatBlueprint.route("/create-room",methods=["GET","POST"])
 @middleware
 def createRoom():
-    data =request.get_json()
+    data =request.get_json(force=True)
     user = request.user
     print(data["room_name"],user)
     return chatController.create_room(data,user)

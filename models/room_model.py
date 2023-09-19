@@ -1,11 +1,13 @@
 from mongoengine import *
 from datetime import datetime
 
-class Room(Document):
+class Rooms(Document):
     name = StringField(required=True,max_length=100)
     created_by = StringField(required=True,max_length=100)
     created_at = DateTimeField(default = datetime.now())
     isGroup = BooleanField(required=True)
+    roomCode = StringField(required=True)
+    isActive = BooleanField(required=True,default=False)
     
 class RoomMemebers(Document):
     _id:{
